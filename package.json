@@ -1,0 +1,31 @@
+{
+  "name": "grapesjs-plugin-chartsjs",
+  "version": "1.0.0",
+  "description": "Charts.js editor for GrapesJs",
+  "main": "dist/grapesjs-plugin-chartsjs.min.js",
+  "scripts": {
+    "lint": "eslint src",
+    "build": "grapesjs-cli build",
+    "start": "grapesjs-cli serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benjgrad/grapesjs-plugin-scroll"
+  },
+  "keywords": [
+    "grapesjs",
+    "plugin",
+    "charts.js",
+    "chart",
+    "graph",
+    "wysiwyg"
+  ],
+  "author": "Ben Grady",
+  "license": "MIT License",
+  "devDependencies": {
+    "grapesjs-cli": "^1.0.14"
+  },
+  "dependencies": {
+    "grapesjs": "^0.19.4"
+  }
+}
