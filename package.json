@@ -1,8 +1,8 @@
 {
-  "name": "grapesjs-plugin-chartsjs",
-  "version": "1.0.0",
-  "description": "Charts.js editor for GrapesJs",
-  "main": "dist/grapesjs-plugin-chartsjs.min.js",
+  "name": "grapesjs-plugin-chartjs",
+  "version": "0.0.2",
+  "description": "Chart.js editor for GrapesJs",
+  "main": "dist/grapesjs-plugin-chartjs.min.js",
   "scripts": {
     "lint": "eslint src",
     "build": "grapesjs-cli build",
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/benjgrad/grapesjs-plugin-scroll"
+    "url": "https://github.com/benjgrad/grapesjs-plugin-chartjs"
   },
   "keywords": [
     "grapesjs",
     "plugin",
-    "charts.js",
+    "chart.js",
     "chart",
     "graph",
     "wysiwyg"

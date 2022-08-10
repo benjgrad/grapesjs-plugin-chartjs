@@ -5,7 +5,9 @@
   <meta charset="utf-8">
   <title>GrapesJS Scroll Plugin</title>
   <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
-  <script src="https://unpkg.com/grapesjs-plugin-scroll"></script>
+  <!-- <script src="dist/grapesjs-plugin-chartsjs.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/grapesjs-plugin-chartsjs"></script>
   <script src="https://unpkg.com/grapesjs"></script>
   <style>
     body,
@@ -36,7 +38,7 @@
       container: '#gjs',
       fromElement: true,
 
-      plugins: ['grapesjs-plugin-scroll'],
+      plugins: ['grapesjs-plugin-chartjs'],
 
     });
   </script>

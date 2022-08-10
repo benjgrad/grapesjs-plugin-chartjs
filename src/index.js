@@ -1,37 +1,75 @@
-import grapesjs from "grapesjs";
-import { addComponents } from "./addComponents";
-import { addTraits } from "./addTraits";
-import addBlocks from "./blocks";
-import {
-  content as defaultContent,
-  styles as defaultStyles,
-  innerStyles as defaultInnerStyles,
-  script
-} from './config';
+/* global Chart */
 
-export default grapesjs.plugins.add('gjs-scroll', (editor, opts = {}) => {
-  const gjsScrollComponentType = 'gjs-scroll';
+import grapesjs from 'grapesjs';
+import addBlocks from './addBlocks';
+import { addComponents } from './addComponents';
+import { addTraits } from './addTraits';
 
-  const gjsScrollPrefix = opts.gjsScrollPrefix ?? "gjs-scroll";
+export default grapesjs.plugins.add('gjs-charts', (editor, opts = {}) => {
 
-  const innerComponentType = `${gjsScrollComponentType}-content`;
+    const script = function (props) {
+        if (props.data && props.data.labels) {
+            const datasets = [];
+            props.data?.values?.forEach(dataSet => {
+                datasets.push({
+                    label: dataSet.label,
+                    backgroundColor: `rgba(${dataSet.color.r},${dataSet.color.g},${dataSet.color.b},${dataSet.color.a})`,
+                    pointBackgroundColor: `rgba(${dataSet.color.r},${dataSet.color.g},${dataSet.color.b},1)`,
+                    borderColor: `rgba(${dataSet.color.r},${dataSet.color.g},${dataSet.color.b},1)`,
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: `rgba(${dataSet.color.r},${dataSet.color.g},${dataSet.color.b},1)`,
+                    data: dataSet.data
+                });
+            });
 
-  let config = {
-    ...opts,
-    gjsScrollPrefix,
-    gjsScrollScript: script,
-    gjsScrollStyles: opts.gjsScrollStyles ?? defaultStyles(gjsScrollPrefix),
-    gjsScrollInnerStyles: opts.gjsScrollPrefix ?? defaultInnerStyles(gjsScrollPrefix),
-    gjsScrollComponentType,
-    gjsScrollInnerComponentType: innerComponentType,
-    gjsScrollBlockName: opts.gjsScrollBlockName ?? "Scroll",
-    gjsScrollContent: `<div data-gjs-type="${gjsScrollComponentType}" class="${gjsScrollPrefix}-container ${gjsScrollPrefix}-reveal">
-        ${opts.gjsScrollContent ?? defaultContent(gjsScrollPrefix, innerComponentType)}
-    </div>`,
-  };
-  addTraits(editor, config);
-  addComponents(editor, config);
-  addBlocks(editor, config);
+            const initLib = function () {
+                var data = {
+                    labels: props.data.labels,
+                    datasets
+                };
+                var options = {
+                    responsive: true,
+                    tooltips: {
+                        mode: 'label'
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: false
+                            },
+                            suggestedMin: 0,
+                        }
+                    }
+                };
+                const element = document.getElementById(props.data.id);
+                const canvas = element.querySelector(".chartsjs");
+                element && new Chart(canvas, {
+                    type: 'radar',
+                    data: data,
+                    options: options
+                });
+
+            };
+
+            if (typeof someExtLib == 'undefined') {
+                const script = document.createElement('script');
+                script.onload = initLib;
+                script.setAttribute('type', 'text/javascript');
+                script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+                document.body.appendChild(script);
+            } else {
+                initLib();
+            }
+        }
+    };
+    const config = {
+        chartType: 'gjs-charts',
+        chartScript: script,
+        chartBlockName: 'Chart',
+        ...opts
+    }
+    addTraits(editor, config);
+    addBlocks(editor, config);
+    addComponents(editor, config);
 });
-
-
